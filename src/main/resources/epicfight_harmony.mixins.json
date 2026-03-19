@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "saga.epicfight_harmony.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ComprehensiveEFMGuardMixin",
+    "EpicFightItemGuardMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

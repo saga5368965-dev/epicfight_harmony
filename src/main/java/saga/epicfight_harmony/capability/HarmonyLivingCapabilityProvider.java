@@ -2,26 +2,25 @@ package saga.epicfight_harmony.capability;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import saga.epicfight_harmony.Epicfight_harmony;
 
-public class HarmonyPlayerCapabilityProvider implements ICapabilitySerializable<CompoundTag> {
-    private final HarmonyPlayerCapability backend;
-    private final LazyOptional<HarmonyPlayerCapability> optional;
+public class HarmonyLivingCapabilityProvider implements ICapabilitySerializable<CompoundTag> {
+    private final HarmonyLivingCapability backend;
+    private final LazyOptional<HarmonyLivingCapability> optional;
 
-    public HarmonyPlayerCapabilityProvider(Player player) {
-        this.backend = new HarmonyPlayerCapability(player);
+    public HarmonyLivingCapabilityProvider(LivingEntity entity) {
+        this.backend = new HarmonyLivingCapability(entity);
         this.optional = LazyOptional.of(() -> backend);
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == Epicfight_harmony.PLAYER_DATA_CAP ? optional.cast() : LazyOptional.empty();
+        return LazyOptional.empty();
     }
 
     @Override
@@ -29,6 +28,4 @@ public class HarmonyPlayerCapabilityProvider implements ICapabilitySerializable<
 
     @Override
     public void deserializeNBT(CompoundTag nbt) { backend.deserializeNBT(nbt); }
-
-    public void invalidate() { optional.invalidate(); }
 }
